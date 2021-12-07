@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,27 +24,53 @@ namespace StudentManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // 开发环境(development),集成环境(integration),测试环境(testing),QA验证,模拟环境(staging),生产环境(production)
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            //else if (env.IsStaging() || env.IsProduction() || env.IsEnvironment("UAT"))
+            //{
+            //    app.UseExceptionHandler("/Error");
+            //}
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("gl.html");
+
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
+            
+            // 替换
+            //// 添加默认文件中间件
+            //app.UseDefaultFiles(defaultFilesOptions);  //index.html, default.html, and so on
+            //// 添加静态文件中间件(MiddleWare)
+            //app.UseStaticFiles();
+
+            // index.html index.htm 默认 default.html default.htm
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        // 进程名
+            //        // var processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+            //        // var configVal = _configuration["Mykey"];
+            //        await context.Response.WriteAsync("hello world"); 
+            //    });
+            //});
+
+            app.Run(async (context) =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    // 进程名
-                    // var processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-                    var configVal = _configuration["Mykey"];
-                    await context.Response.WriteAsync(configVal);
-                });
+                await context.Response.WriteAsync("hello world");
             });
         }
     }
