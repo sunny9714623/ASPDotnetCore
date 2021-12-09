@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,19 @@ namespace StudentManagement.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
+        private readonly IStudentRepository _studentRepository;
+        public HomeController(IStudentRepository studentRepository)
         {
-            return "Hello from mvc";
+            _studentRepository = studentRepository;
+        }
+        //public string Index()
+        //{
+        //    return _studentRepository.GetStudent(1).Name;
+        //}
+        public IActionResult Details()
+        {
+            var model = _studentRepository.GetStudent(1);
+            return View(model);
         }
     }
 }
