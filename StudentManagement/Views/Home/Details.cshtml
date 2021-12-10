@@ -1,17 +1,25 @@
-﻿ @model StudentManagement.Models.Student
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <div>
-        姓名 : @Model.Name
+﻿ @model HomeDetailsViewModel
+@{ 
+    ViewBag.Title = "学生详情页";
+}
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@Model.Student.Name</h1>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" src="~/images/george.jpeg"/>
+                <h4>学生ID: @Model.Student.Id</h4>
+                <h4>邮箱:@Model.Student.Email</h4>
+                <h4>班级名称:@Model.Student.ClassName</h4>
+            </div> 
+            <div class="card-footer text-center">
+                <a asp-action="Index" asp-controller="home" class="btn btn-primary">返回</a>
+                <a href="#" class="btn btn-primary">编辑</a>
+                <a href="#" class="btn btn-danger">删除</a>
+            </div>
+        </div>
     </div>
-    <div>
-        邮箱 : @Model.Email
-    </div>
-    <div>
-        班级名称 ：@Model.ClassName
-    </div>
-</body>
-</html>
+
+</div>

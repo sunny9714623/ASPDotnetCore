@@ -58,8 +58,12 @@ namespace StudentManagement
             //defaultFilesOptions.DefaultFileNames.Add("gl.html");
 
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-            
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
+
             // 替换
             //// 添加默认文件中间件
             //app.UseDefaultFiles(defaultFilesOptions);  //index.html, default.html, and so on
