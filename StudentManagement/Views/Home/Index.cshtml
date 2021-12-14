@@ -20,7 +20,7 @@
                         <a href="@Url.Action("details", "home", new { id = student.Id })" class="btn btn-primary">查看</a>*@
                         @*<a href="/home/details/@student.Id" class="btn btn-primary">查看</a>*@
                         @*<a href="/home/details/@student.Id" class="btn btn-primary">查看-a</a>*@
-                        <a href="#" class="btn btn-primary">编辑</a>
+                        <a asp-controller="home" asp-action="edit" asp-route-id="@student.Id" class="btn btn-primary m-1">编辑</a>
                         <a href="#" class="btn btn-danger">删除</a>
                     </div>
                 </div>

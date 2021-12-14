@@ -50,6 +50,12 @@ namespace StudentManagement
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // app.UseStatusCodePagesWithRedirects("/Error/{0}");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            }
             //else if (env.IsStaging() || env.IsProduction() || env.IsEnvironment("UAT"))
             //{
             //    app.UseExceptionHandler("/Error");
@@ -87,10 +93,10 @@ namespace StudentManagement
             //    });
             //});
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("hello world");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("hello world");
+            //});
         }
     }
 }
